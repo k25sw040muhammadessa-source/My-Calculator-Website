@@ -1,0 +1,453 @@
+/* ========================================
+   CALCULATOR STYLING
+   ======================================== */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* ========================================
+   ROOT & COLOR VARIABLES
+   ======================================== */
+:root {
+    --primary-color: #6366f1;
+    --secondary-color: #8b5cf6;
+    --accent-color: #ec4899;
+    --dark-bg: #0f172a;
+    --light-bg: #1e293b;
+    --text-primary: #f1f5f9;
+    --text-secondary: #cbd5e1;
+    --border-color: #334155;
+    --success-color: #10b981;
+    --warning-color: #f59e0b;
+    
+    /* Spacing */
+    --spacing-xs: 0.5rem;
+    --spacing-sm: 1rem;
+    --spacing-md: 1.2rem;
+    --spacing-lg: 2rem;
+    
+    /* Transitions */
+    --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-normal: 300ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ========================================
+   BODY & CONTAINER
+   ======================================== */
+body {
+    background: linear-gradient(135deg, var(--dark-bg) 0%, #1a1f35 100%);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: var(--text-primary);
+    overflow: hidden;
+    position: relative;
+}
+
+/* Animated background elements */
+body::before {
+    content: '';
+    position: fixed;
+    top: -50%;
+    right: -50%;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle, rgba(99, 102, 241, 0.1) 0%, transparent 70%);
+    animation: float 20s ease-in-out infinite;
+    pointer-events: none;
+    z-index: -1;
+}
+
+body::after {
+    content: '';
+    position: fixed;
+    bottom: -50%;
+    left: -50%;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle, rgba(139, 92, 246, 0.1) 0%, transparent 70%);
+    animation: float 25s ease-in-out infinite reverse;
+    pointer-events: none;
+    z-index: -1;
+}
+
+@keyframes float {
+    0%, 100% {
+        transform: translate(0, 0);
+    }
+    50% {
+        transform: translate(30px, 30px);
+    }
+}
+
+.container {
+    width: 100%;
+    padding: var(--spacing-md);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 80vh;
+}
+
+/* ========================================
+   CALCULATOR WRAPPER - GLASS MORPHISM
+   ======================================== */
+.calculator-wrapper {
+    perspective: 1000px;
+    animation: slideUp 0.6s ease-out;
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.calculator {
+    /* Glass Morphism Effect */
+    background: rgba(30, 41, 59, 0.7);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(148, 163, 184, 0.2);
+    border-radius: 30px;
+    padding: var(--spacing-lg);
+    box-shadow: 
+        0 8px 32px rgba(0, 0, 0, 0.3),
+        inset 0 1px 1px rgba(255, 255, 255, 0.1),
+        0 0 60px rgba(99, 102, 241, 0.1);
+    width: 100%;
+    max-width: 380px;
+    transition: all var(--transition-normal);
+    transform: translateZ(0);
+}
+
+.calculator:hover {
+    box-shadow: 
+        0 16px 48px rgba(0, 0, 0, 0.4),
+        inset 0 1px 1px rgba(255, 255, 255, 0.15),
+        0 0 80px rgba(99, 102, 241, 0.2);
+    border-color: rgba(99, 102, 241, 0.4);
+}
+
+/* ========================================
+   DISPLAY SECTION
+   ======================================== */
+.display-section {
+    margin-bottom: var(--spacing-lg);
+}
+
+.previous-operation {
+    width: 100%;
+    padding: var(--spacing-sm) var(--spacing-md);
+    font-size: 1.2rem;
+    text-align: right;
+    color: var(--text-secondary);
+    margin-bottom: var(--spacing-xs);
+    min-height: 1.8rem;
+    font-family: 'Courier New', monospace;
+    letter-spacing: 1px;
+}
+
+.display {
+    width: 100%;
+    padding: var(--spacing-md);
+    font-size: 2.5rem;
+    font-weight: 600;
+    text-align: right;
+    background: linear-gradient(135deg, rgba(15, 23, 42, 0.8), rgba(30, 41, 59, 0.6));
+    border: 2px solid rgba(99, 102, 241, 0.3);
+    border-radius: 20px;
+    color: var(--text-primary);
+    outline: none;
+    margin-bottom: var(--spacing-md);
+    transition: all var(--transition-fast);
+    letter-spacing: 2px;
+    font-family: 'Courier New', monospace;
+    box-shadow: 
+        inset 0 2px 8px rgba(0, 0, 0, 0.3),
+        0 0 20px rgba(99, 102, 241, 0.1);
+}
+
+.display:focus {
+    border-color: var(--primary-color);
+    box-shadow: 
+        inset 0 2px 8px rgba(0, 0, 0, 0.3),
+        0 0 30px rgba(99, 102, 241, 0.3);
+}
+
+.display::placeholder {
+    color: var(--text-secondary);
+    opacity: 0.5;
+}
+
+.calculator-info {
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+    text-align: center;
+    margin-top: var(--spacing-xs);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    opacity: 0.6;
+}
+
+/* ========================================
+   BUTTON GRID
+   ======================================== */
+.button-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--spacing-md);
+}
+
+/* ========================================
+   BUTTONS - GENERAL STYLES
+   ======================================== */
+.btn {
+    padding: var(--spacing-md);
+    border: none;
+    border-radius: 16px;
+    font-size: 1.25rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    background-size: 200% 200%;
+    background-position: left center;
+}
+
+/* Ripple effect on click */
+.btn::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.3);
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+}
+
+.btn::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.1);
+    transition: left 0.5s ease;
+    pointer-events: none;
+}
+
+.btn:active::after {
+    left: 100%;
+}
+
+/* ========================================
+   NUMBER BUTTONS
+   ======================================== */
+.number-btn {
+    background: linear-gradient(135deg, #334155 0%, #475569 100%);
+    color: var(--text-primary);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.number-btn:hover {
+    background: linear-gradient(135deg, #475569 0%, #64748b 100%);
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(99, 102, 241, 0.2);
+}
+
+.number-btn:active {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(99, 102, 241, 0.15);
+}
+
+/* Special styling for zero button (spans 2 columns) */
+.zero-btn {
+    grid-column: span 2;
+}
+
+/* ========================================
+   OPERATOR BUTTONS - GRADIENT PURPLE
+   ======================================== */
+.operator-btn {
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+    color: white;
+    font-weight: 700;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.operator-btn:hover {
+    transform: translateY(-4px);
+    box-shadow: 
+        0 8px 24px rgba(99, 102, 241, 0.4),
+        0 0 20px rgba(139, 92, 246, 0.3);
+    background: linear-gradient(135deg, var(--secondary-color) 0%, var(--accent-color) 100%);
+}
+
+.operator-btn:active {
+    transform: translateY(-2px);
+}
+
+/* ========================================
+   FUNCTION BUTTONS - DARK WITH ACCENT
+   ======================================== */
+.function-btn {
+    background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+    color: var(--primary-color);
+    border: 2px solid rgba(99, 102, 241, 0.3);
+    font-weight: 700;
+}
+
+.function-btn:hover {
+    background: linear-gradient(135deg, #334155 0%, #475569 100%);
+    border-color: var(--primary-color);
+    color: var(--accent-color);
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(99, 102, 241, 0.3);
+}
+
+.function-btn:active {
+    transform: translateY(-2px);
+}
+
+/* ========================================
+   EQUALS BUTTON - SUCCESS COLOR
+   ======================================== */
+.equals-btn {
+    background: linear-gradient(135deg, var(--success-color) 0%, #059669 100%);
+    color: white;
+    font-weight: 700;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    /* grid-column: span 2; */
+}
+
+.equals-btn:hover {
+    transform: translateY(-4px);
+    box-shadow: 
+        0 8px 24px rgba(16, 185, 129, 0.4),
+        0 0 20px rgba(34, 197, 94, 0.2);
+    background: linear-gradient(135deg, #059669 0%, #047857 100%);
+}
+
+.equals-btn:active {
+    transform: translateY(-2px);
+}
+
+/* ========================================
+   RESPONSIVE DESIGN
+   ======================================== */
+@media (max-width: 500px) {
+    .calculator {
+        padding: var(--spacing-md);
+        border-radius: 25px;
+        margin: var(--spacing-md);
+    }
+
+    .display {
+        font-size: 2rem;
+        padding: var(--spacing-md);
+    }
+
+    .button-grid {
+        gap: var(--spacing-sm);
+    }
+
+    .btn {
+        padding: var(--spacing-sm);
+        font-size: 1.1rem;
+        border-radius: 14px;
+    }
+
+    .calculator-info {
+        font-size: 0.65rem;
+    }
+}
+
+@media (max-width: 350px) {
+    .display {
+        font-size: 1.5rem;
+        padding: var(--spacing-sm);
+    }
+
+    .btn {
+        padding: var(--spacing-xs);
+        font-size: 1rem;
+    }
+
+    .calculator {
+        padding: var(--spacing-md);
+    }
+}
+
+/* ========================================
+   PRINT STYLES
+   ======================================== */
+@media print {
+    body {
+        background: white;
+    }
+
+    .calculator {
+        background: white;
+        border: 1px solid #ccc;
+        box-shadow: none;
+    }
+
+    .btn {
+        box-shadow: none;
+    }
+}
+
+/* ========================================
+   ANIMATIONS
+   ======================================== */
+@keyframes pulse {
+    0%, 100% {
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    }
+    50% {
+        box-shadow: 0 8px 25px rgba(99, 102, 241, 0.3);
+    }
+}
+
+.btn:focus-visible {
+    animation: pulse 2s infinite;
+    outline: 2px solid var(--primary-color);
+    outline-offset: 2px;
+}
+
+/* ========================================
+   DARK MODE (ALWAYS ON - System Preference)
+   ======================================== */
+@media (prefers-color-scheme: dark) {
+    /* Already styled for dark mode */
+}
+
+/* ========================================
+   REDUCED MOTION - Accessibility
+   ======================================== */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}

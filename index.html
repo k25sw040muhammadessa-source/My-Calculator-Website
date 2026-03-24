@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculator</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="calculator-wrapper">
+            <div class="calculator">
+                <div class="display-section">
+                    <div class="previous-operation" id="previousOperation"></div>
+                    <input 
+                        type="text" 
+                        class="display" 
+                        id="display" 
+                        placeholder="0" 
+                        readonly
+                    >
+                    <div class="calculator-info">Calculator v1.0</div>
+                </div>
+
+                <div class="button-grid">
+                    <!-- Row 1: Functions -->
+                    <button class="btn function-btn" data-action="clear">AC</button>
+                    <button class="btn function-btn" data-action="delete">DEL</button>
+                    <button class="btn function-btn" data-action="percent">%</button>
+                    <button class="btn operator-btn" data-operator="/">÷</button>
+
+                    <!-- Row 2: Numbers 7-9 -->
+                    <button class="btn number-btn" data-number="7">7</button>
+                    <button class="btn number-btn" data-number="8">8</button>
+                    <button class="btn number-btn" data-number="9">9</button>
+                    <button class="btn operator-btn" data-operator="*">×</button>
+
+                    <!-- Row 3: Numbers 4-6 -->
+                    <button class="btn number-btn" data-number="4">4</button>
+                    <button class="btn number-btn" data-number="5">5</button>
+                    <button class="btn number-btn" data-number="6">6</button>
+                    <button class="btn operator-btn" data-operator="-">−</button>
+
+                    <!-- Row 4: Numbers 1-3 -->
+                    <button class="btn number-btn" data-number="1">1</button>
+                    <button class="btn number-btn" data-number="2">2</button>
+                    <button class="btn number-btn" data-number="3">3</button>
+                    <button class="btn operator-btn" data-operator="+">+</button>
+
+                    <!-- Row 5: Zero and Decimal -->
+                    <button class="btn number-btn zero-btn" data-number="0">0</button>
+                    <button class="btn number-btn" data-number=".">.</button>
+                    <button class="btn equals-btn" data-action="equals">=</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
